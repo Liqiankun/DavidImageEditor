@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+
+
 @class DavidImageEditorViewController;
 
 @protocol DavidImageEditorViewControllerDelegate <NSObject>
@@ -17,10 +19,18 @@
 
 @end
 
+
+
+typedef void(^DavidImageEditorBlock)(UIImage *image, BOOL canceled);
+
 @interface DavidImageEditorViewController : UIViewController
 
 @property(nonatomic,assign) id<DavidImageEditorViewControllerDelegate> delegate;
+@property(nonatomic,copy) DavidImageEditorBlock finishBlock;
+@property(nonatomic,copy) DavidImageEditorBlock cancelBlock;
+
 
 - (id)initWithImage:(UIImage *)originalImage cropFrame:(CGRect)cropFrame;
+- (id)initWithImage:(UIImage *)originalImage cropFrame:(CGRect)cropFrame finishCallBack:(DavidImageEditorBlock)finishBlock cancelBlock:(DavidImageEditorBlock)cancelBlock;
 
 @end

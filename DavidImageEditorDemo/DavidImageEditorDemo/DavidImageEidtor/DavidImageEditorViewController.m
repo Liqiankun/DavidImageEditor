@@ -31,6 +31,11 @@
 
 - (id)initWithImage:(UIImage *)originalImage cropFrame:(CGRect)cropFrame
 {
+   return  [self initWithImage:originalImage cropFrame:cropFrame finishCallBack:nil cancelBlock:nil];
+}
+
+- (id)initWithImage:(UIImage *)originalImage cropFrame:(CGRect)cropFrame finishCallBack:(DavidImageEditorBlock)finishBlock cancelBlock:(DavidImageEditorBlock)cancelBlock
+{
     self = [super init];
     if (self) {
         self.view.backgroundColor = [UIColor darkGrayColor];
@@ -43,6 +48,9 @@
         [self.view addSubview:self.imageEditorView];
         
         [self setUpButtons];
+        
+        self.finishBlock = finishBlock;
+        self.cancelBlock = cancelBlock;
         
     }
     return self;
@@ -87,12 +95,20 @@
     if ([self.delegate respondsToSelector:@selector(imageEditorDidCancel:)]) {
         [self.delegate imageEditorDidCancel:self];
     }
+    
+    if (self.cancelBlock) {
+        self.cancelBlock(nil,YES);
+    }
 }
 
 - (void)confirm:(id)sender {
     [self.imageEditorView finishEditing];
     if ([self.delegate respondsToSelector:@selector(imageEditor:didFinished:)]) {
         [self.delegate imageEditor:self didFinished:self.imageEditorView.croppedImage];
+    }
+    
+    if (self.finishBlock) {
+        self.finishBlock(self.imageEditorView.croppedImage,NO);
     }
 }
 
