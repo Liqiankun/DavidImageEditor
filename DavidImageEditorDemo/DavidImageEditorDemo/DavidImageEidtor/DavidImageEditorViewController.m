@@ -24,6 +24,11 @@
 
 @implementation DavidImageEditorViewController
 
+-(BOOL)prefersStatusBarHidden
+{
+    return YES;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -38,7 +43,7 @@
 {
     self = [super init];
     if (self) {
-        self.view.backgroundColor = [UIColor darkGrayColor];
+        self.view.backgroundColor = [UIColor colorWithRed:0.00f green:0.00f blue:0.00f alpha:1.00f];
         
         self.imageEditorView = [[DavidImageEidtorView alloc] initWithFrame:cropFrame withImage:originalImage];
         
@@ -58,20 +63,25 @@
 
 -(void)setUpButtons
 {
-    UIButton *cancelBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 50.0f, self.view.frame.size.width / 2, 50)];
-    cancelBtn.backgroundColor = [UIColor blackColor];
+    
+    UIView *barView = [[UIView alloc] initWithFrame:CGRectMake(0,self.view.frame.size.height - 50.0f, self.view.frame.size.width, 50)];
+    barView.backgroundColor = [UIColor colorWithRed:0.08f green:0.08f blue:0.08f alpha:1.00f];
+    [self.view addSubview:barView];
+    
+    UIButton *cancelBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+    //cancelBtn.backgroundColor = [UIColor blackColor];
     cancelBtn.titleLabel.textColor = [UIColor whiteColor];
     [cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
     [cancelBtn.titleLabel setFont:[UIFont boldSystemFontOfSize:18.0f]];
     cancelBtn.titleLabel.textAlignment = NSTextAlignmentLeft;
     
     [cancelBtn addTarget:self action:@selector(cancel:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:cancelBtn];
+    [barView addSubview:cancelBtn];
     
     self.cancelButton = cancelBtn;
     
-    UIButton *confirmBtn = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 2, self.view.frame.size.height - 50.0f, self.view.frame.size.width / 2, 50)];
-    confirmBtn.backgroundColor = [UIColor blackColor];
+    UIButton *confirmBtn = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - 50, 0, 50, 50)];
+    //confirmBtn.backgroundColor = [UIColor blackColor];
     confirmBtn.titleLabel.textColor = [UIColor whiteColor];
     [confirmBtn setTitle:@"确定" forState:UIControlStateNormal];
     [confirmBtn.titleLabel setFont:[UIFont boldSystemFontOfSize:18.0f]];
@@ -79,7 +89,7 @@
     confirmBtn.titleLabel.textColor = [UIColor whiteColor];
     
     [confirmBtn addTarget:self action:@selector(confirm:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:confirmBtn];
+    [barView addSubview:confirmBtn];
     
     self.rotateBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, 30, 50, 50)];
     
