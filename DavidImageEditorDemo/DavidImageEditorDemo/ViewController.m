@@ -93,6 +93,7 @@
         CGFloat viewHeight = [UIScreen mainScreen].bounds.size.height - 50;
         CGFloat viewWidth =  self.view.frame.size.width;
         CGFloat VPY = (viewHeight -  viewWidth * 0.7) / 2;
+    
         DavidImageEditorViewController *imgCropperVC = [[DavidImageEditorViewController alloc] initWithImage:portraitImg cropFrame:CGRectMake(0,VPY, self.view.frame.size.width, self.view.frame.size.width * 0.7) finishCallBack:^(UIImage *image, BOOL canceled) {
             self.imageView.image =  image;
             [picker dismissViewControllerAnimated:YES completion:nil];
@@ -102,12 +103,10 @@
             [picker dismissViewControllerAnimated:YES completion:nil];
        
         }];
-       // imgCropperVC.delegate = self;
+
         
         [picker pushViewController:imgCropperVC animated:YES];
         [picker setNavigationBarHidden:YES animated:NO];
-//        [self presentViewController:imgCropperVC animated:YES completion:^{
-//            // TO DO
 
 }
 
@@ -115,7 +114,6 @@
 {
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
-
 
 
 - (void)didReceiveMemoryWarning {

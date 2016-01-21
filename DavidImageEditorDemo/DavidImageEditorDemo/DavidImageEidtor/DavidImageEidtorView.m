@@ -24,6 +24,7 @@
     if (self) {
         self.frame = frame;
         [self setup];
+        
         self.image = [self fixOrientation:image];
         float _imageScale = self.frame.size.width / self.image.size.width;
         self.imageView.frame = CGRectMake(0, 0, self.image.size.width * _imageScale, self.image.size.height * _imageScale);
@@ -52,8 +53,6 @@
     [moveGes setMinimumNumberOfTouches:1];
     [moveGes setMaximumNumberOfTouches:1];
     [self.imageView addGestureRecognizer:moveGes];
-
-
 
 }
 

@@ -13,13 +13,18 @@
 @class DavidImageEditorViewController;
 
 @protocol DavidImageEditorViewControllerDelegate <NSObject>
-
+/**
+ *  图片编辑完成点击确定按钮调用
+ *
+ *  @param editedImage               编辑完成后的图片
+ */
 - (void)imageEditor:(DavidImageEditorViewController *)imageEditorViewController didFinished:(UIImage *)editedImage;
+/**
+ *  放弃编辑点击取消按纽是调用
+ */
 - (void)imageEditorDidCancel:(DavidImageEditorViewController *)imageEditorViewController;
 
 @end
-
-
 
 typedef void(^DavidImageEditorBlock)(UIImage *image, BOOL canceled);
 
@@ -29,8 +34,22 @@ typedef void(^DavidImageEditorBlock)(UIImage *image, BOOL canceled);
 @property(nonatomic,copy) DavidImageEditorBlock finishBlock;
 @property(nonatomic,copy) DavidImageEditorBlock cancelBlock;
 
-
+/**
+ *  图片编辑初始化方法
+ *
+ *  @param originalImage 要编辑的图片
+ *  @param cropFrame     编辑框的大小和位置
+ */
 - (id)initWithImage:(UIImage *)originalImage cropFrame:(CGRect)cropFrame;
+
+/**
+ * 图片编辑初始化方法
+ *
+ *  @param originalImage 要编辑的图片
+ *  @param cropFrame     编辑框的大小和位置
+ *  @param finishBlock   图片编辑完成之后Block
+ *  @param cancelBlock   放弃编辑的Block
+ */
 - (id)initWithImage:(UIImage *)originalImage cropFrame:(CGRect)cropFrame finishCallBack:(DavidImageEditorBlock)finishBlock cancelBlock:(DavidImageEditorBlock)cancelBlock;
 
 @end

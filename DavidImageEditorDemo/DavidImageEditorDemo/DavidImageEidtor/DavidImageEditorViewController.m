@@ -52,7 +52,7 @@
         
         [self.view addSubview:self.imageEditorView];
         
-        [self setUpButtons];
+        [self uiConfig];
         
         self.finishBlock = finishBlock;
         self.cancelBlock = cancelBlock;
@@ -61,62 +61,66 @@
     return self;
 }
 
--(void)setUpButtons
+-(void)uiConfig
 {
     
-    UIView *barView = [[UIView alloc] initWithFrame:CGRectMake(0,self.view.frame.size.height - 50.0f, self.view.frame.size.width, 50)];
+    CGFloat viewHeight = self.view.frame.size.height;
+    CGFloat viewWidth = self.view.frame.size.width;
+    
+    UIView *barView = [[UIView alloc] initWithFrame:CGRectMake(0,viewHeight - 50.0f, viewWidth, 50)];
     barView.backgroundColor = [UIColor colorWithRed:0.08f green:0.08f blue:0.08f alpha:1.00f];
     [self.view addSubview:barView];
     
-    UIButton *cancelBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
-    //cancelBtn.backgroundColor = [UIColor blackColor];
-    cancelBtn.titleLabel.textColor = [UIColor whiteColor];
-    [cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
-    [cancelBtn.titleLabel setFont:[UIFont boldSystemFontOfSize:18.0f]];
-    cancelBtn.titleLabel.textAlignment = NSTextAlignmentLeft;
+   
+    self.cancelButton = [self setupButtonWithTitle:@"取消" andImage:nil andFrame:CGRectMake(0, 0, 50, 50) andAction:@selector(cancel:)];
+    [self.cancelButton addTarget:self action:@selector(cancel:) forControlEvents:UIControlEventTouchUpInside];
+    [barView addSubview:self.cancelButton];
     
-    [cancelBtn addTarget:self action:@selector(cancel:) forControlEvents:UIControlEventTouchUpInside];
-    [barView addSubview:cancelBtn];
+    self.confirmBtn = [self setupButtonWithTitle:@"确定" andImage:nil andFrame:CGRectMake(viewWidth - 50, 0, 50, 50) andAction:@selector(confirm:)];
+    [barView addSubview:self.confirmBtn];
     
-    self.cancelButton = cancelBtn;
-    
-    UIButton *confirmBtn = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - 50, 0, 50, 50)];
-    //confirmBtn.backgroundColor = [UIColor blackColor];
-    confirmBtn.titleLabel.textColor = [UIColor whiteColor];
-    [confirmBtn setTitle:@"确定" forState:UIControlStateNormal];
-    [confirmBtn.titleLabel setFont:[UIFont boldSystemFontOfSize:18.0f]];
-    confirmBtn.titleLabel.textAlignment = NSTextAlignmentRight;
-    confirmBtn.titleLabel.textColor = [UIColor whiteColor];
-    
-    [confirmBtn addTarget:self action:@selector(confirm:) forControlEvents:UIControlEventTouchUpInside];
-    [barView addSubview:confirmBtn];
-    
-    self.rotateBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, 30, 50, 50)];
-    
-    [self.rotateBtn setImage:[UIImage imageNamed:@"imagePicker_edit_rotate"] forState:UIControlStateNormal];
-    [ self.rotateBtn addTarget:self action:@selector(rotateBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    self.rotateBtn = [self setupButtonWithTitle:nil andImage:[UIImage imageNamed:@"imagePicker_edit_rotate"] andFrame:CGRectMake(10, 10, 50, 50) andAction:@selector(rotateBtnAction:)];
     [self.view addSubview:self.rotateBtn];
     
-    self.confirmBtn = confirmBtn;
+ 
+}
+
+-(UIButton*)setupButtonWithTitle:(NSString*)title andImage:(UIImage*)image andFrame:(CGRect)frame andAction:(SEL)action
+{
+    UIButton *button = [[UIButton alloc] init];
+    button.titleLabel.textColor = [UIColor whiteColor];
+    [button setTitle:title forState:UIControlStateNormal];
+    [button setImage:image forState:UIControlStateNormal];
+    button.frame = frame;
+    [button.titleLabel setFont:[UIFont boldSystemFontOfSize:18.0f]];
+    button.titleLabel.textAlignment = NSTextAlignmentLeft;
+    [button addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];
+    return button;
 }
 
 
 - (void)cancel:(id)sender {
+    //代理
     if ([self.delegate respondsToSelector:@selector(imageEditorDidCancel:)]) {
         [self.delegate imageEditorDidCancel:self];
     }
     
+    //回调
     if (self.cancelBlock) {
         self.cancelBlock(nil,YES);
     }
 }
 
 - (void)confirm:(id)sender {
+    
     [self.imageEditorView finishEditing];
+    
+    //代理
     if ([self.delegate respondsToSelector:@selector(imageEditor:didFinished:)]) {
         [self.delegate imageEditor:self didFinished:self.imageEditorView.croppedImage];
     }
     
+    //回调
     if (self.finishBlock) {
         self.finishBlock(self.imageEditorView.croppedImage,NO);
     }
