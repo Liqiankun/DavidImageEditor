@@ -19,6 +19,7 @@
 @property(nonatomic,strong) UIButton *confirmBtn;
 @property(nonatomic,strong) UIButton *rotateBtn;
 @property(nonatomic,strong) DavidImageEidtorView *imageEditorView;
+@property(nonatomic,weak) UIView *btnBackView;
 
 @end
 
@@ -70,6 +71,7 @@
     UIView *barView = [[UIView alloc] initWithFrame:CGRectMake(0,viewHeight - 50.0f, viewWidth, 50)];
     barView.backgroundColor = [UIColor colorWithRed:0.08f green:0.08f blue:0.08f alpha:1.00f];
     [self.view addSubview:barView];
+    self.btnBackView = barView;
     
    
     self.cancelButton = [self setupButtonWithTitle:@"取消" andImage:nil andFrame:CGRectMake(0, 0, 50, 50) andAction:@selector(cancel:)];
@@ -129,6 +131,21 @@
 -(void)rotateBtnAction:(UIButton*)button
 {
     [self.imageEditorView rotateImage];
+}
+
+-(void)setImage:(UIImage *)image
+{
+    [self.rotateBtn setImage:image forState:UIControlStateNormal];
+}
+
+-(void)setBackColor:(UIColor *)backColor
+{
+    self.view.backgroundColor = backColor;
+}
+
+-(void)setBtnBackColor:(UIColor *)btnBackColor
+{
+    self.btnBackView.backgroundColor = btnBackColor;
 }
 
 - (void)didReceiveMemoryWarning {

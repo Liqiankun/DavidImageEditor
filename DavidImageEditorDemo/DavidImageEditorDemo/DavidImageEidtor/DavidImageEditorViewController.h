@@ -31,8 +31,16 @@ typedef void(^DavidImageEditorBlock)(UIImage *image, BOOL canceled);
 @interface DavidImageEditorViewController : UIViewController
 
 @property(nonatomic,assign) id<DavidImageEditorViewControllerDelegate> delegate;
+/** 完成编辑的Block */
 @property(nonatomic,copy) DavidImageEditorBlock finishBlock;
+/** 取消编辑的Block */
 @property(nonatomic,copy) DavidImageEditorBlock cancelBlock;
+/** 旋转按钮的图片 */
+@property(nonatomic,strong)UIImage *image;
+/** 背景颜色 */
+@property(nonatomic,strong) UIColor *backColor;
+/** 按钮背景颜色 */
+@property(nonatomic,strong) UIColor *btnBackColor;
 
 /**
  *  图片编辑初始化方法
