@@ -31,7 +31,7 @@
         _originalImageViewSize = CGSizeMake(self.image.size.width*_imageScale, self.image.size.height*_imageScale);
         self.imageView.image = self.image;
         self.imageView.center = CGPointMake(self.frame.size.width/2.0, self.frame.size.height/2.0);
-        
+        self.clockwise = YES;
     }
     
     return self;
@@ -95,7 +95,13 @@ float _lastScale = 1.0;
 -(void)rotateImage
 {
     CGAffineTransform currentTransform = self.imageView.transform;
-    CGAffineTransform newTransform = CGAffineTransformRotate(currentTransform,M_PI/2);
+    CGFloat rotate;
+    if (self.clockwise == YES) {
+        rotate = M_PI/2;
+    }else{
+        rotate =  -(M_PI/2);
+    }
+    CGAffineTransform newTransform = CGAffineTransformRotate(currentTransform,rotate);
     [self.imageView setTransform:newTransform];
     
 }
@@ -127,6 +133,10 @@ float _lastScale = 1.0;
     CGImageRelease(tmp);
 }
 
+-(void)setClockwise:(BOOL)clockwise
+{
+    _clockwise = clockwise;
+}
 
 /** 解决拍照时编辑图片自动旋转90°问题  */
 - (UIImage *)fixOrientation:(UIImage *)aImage {

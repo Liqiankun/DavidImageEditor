@@ -148,6 +148,11 @@
     self.btnBackView.backgroundColor = btnBackColor;
 }
 
+-(void)setClockwise:(BOOL)clockwise
+{
+    self.imageEditorView.clockwise = clockwise;
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

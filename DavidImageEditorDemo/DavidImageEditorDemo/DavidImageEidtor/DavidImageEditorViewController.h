@@ -41,7 +41,8 @@ typedef void(^DavidImageEditorBlock)(UIImage *image, BOOL canceled);
 @property(nonatomic,strong) UIColor *backColor;
 /** 按钮背景颜色 */
 @property(nonatomic,strong) UIColor *btnBackColor;
-
+/** 是否顺时针旋转图片 */
+@property(nonatomic,assign) BOOL clockwise;
 /**
  *  图片编辑初始化方法
  *

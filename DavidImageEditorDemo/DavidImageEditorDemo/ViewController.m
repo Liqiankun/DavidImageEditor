@@ -104,7 +104,8 @@
        
         }];
 
-        
+        imgCropperVC.clockwise = NO;
+    
         [picker pushViewController:imgCropperVC animated:YES];
         [picker setNavigationBarHidden:YES animated:NO];
 
