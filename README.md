@@ -11,7 +11,8 @@ Help you edit image after you picked it from ImageAlbum. It's like Apple origin 
 - [x] 定制外观
 
 #How to use
-Drag `DavidImageEidtor` folder to your project. Then `#import "DavidImageEditorViewController.h"`.
+Drag `DavidImageEidtor` folder to your project. Then `#import "DavidImageEditorViewController.h"`. For more please check the Demo.<br>
+把`DavidImageEidtor`文件夹加入到你的项目中，然后`#import "DavidImageEditorViewController.h"`。具体可以看Demo。
 ```oc
 #pragma mark UIImagePickerDelegate Methods
 
