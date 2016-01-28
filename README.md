@@ -9,6 +9,7 @@ Help you edit image after you picked it from ImageAlbum. It's like Apple origin 
 - [x] 使用简单
 - [x] 定制编辑尺寸和位置
 - [x] 定制外观
+
 #How to use
 Drag `DavidImageEidtor` folder to your project. Then `#import "DavidImageEditorViewController.h"`.
 ```oc
