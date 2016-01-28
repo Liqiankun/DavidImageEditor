@@ -39,3 +39,9 @@ Drag `DavidImageEidtor` folder to your project. Then `#import "DavidImageEditorV
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 ```
+#Requirements
+- Xcode 7.0 or greater
+- iOS8.0(manually only) or greater
+
+#Author
+David Lee, qianlunli@yahoo.com
